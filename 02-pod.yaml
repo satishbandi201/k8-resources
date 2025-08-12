@@ -1,10 +1,10 @@
-apiVesrion: v1
+apiVersion: v1
 kind: Pod
-meatadata:
+metadata:
   name: nginx
-  labeles:
+  labels:
     purpose: demo
 spec:
   containers:
-    - name: nginx
-      image: nginx
+  - name: nginx
+    image: nginx
