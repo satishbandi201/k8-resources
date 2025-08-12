@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: envar-demo
+  labels:
+    purpose: demonstrate-envars
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    env:
+    - name: COURSE
+      value: "KUBERENETS"
+    - name: TRAINER
+      value: "SIVAKUMAR REDDY M"
