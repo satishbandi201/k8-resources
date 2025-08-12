@@ -5,7 +5,7 @@ metadata:
   labels:
     purpose: service-np-demo
 spec:
-  type: Nodeport
+  type: NodePort
   selector:
     purpose: service-np-demo
     project: roboshop
@@ -19,7 +19,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: nginx-np
-  labeles:
+  labels:
     purpose: service-np-demo
     project: roboshop
     environment: dev
