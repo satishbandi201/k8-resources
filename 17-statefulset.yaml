@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc-headless
+  labels:
+    purpose: statefulset
+    project: roboshop
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    purpose: statefulset
+    project: roboshop
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc-normal
+  labels:
+    purpose: statefulset
+    project: roboshop
+spec:
+  ports:
+  - port: 80
+    name: web
+  selector:
+    purpose: statefulset
+    project: roboshop
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx-statefulset
+spec:
+  selector:
+    matchLabels:
+      purpose: statefulset
+      project: roboshop # has to match .spec.template.metadata.labels
+  serviceName: "nginx-svc-headless" # this should be headless service
+  replicas: 3 # by default is 1
+  template:
+    metadata:
+      labels:
+        purpose: statefulset
+        project: roboshop # has to match .spec.selector.matchLabels
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        volumeMounts:
+        - name: www
+          mountPath: /usr/share/nginx/html
+  # This is nothing but PVC, you can directly create here
+  volumeClaimTemplates:
+  - metadata:
+      name: www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "efs-roboshop"
+      resources:
+        requests:
+          storage: 2Gi
