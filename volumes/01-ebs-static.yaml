@@ -10,7 +10,7 @@ spec:
   csi:
     driver: ebs.csi.aws.com
     fsType: ext4
-    volumeHandle: vol-0584a217cbcc84bd6
+    volumeHandle: vol-02ddcab6f4651fdf6
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -34,7 +34,7 @@ metadata:
     project: roboshop
 spec:
   nodeSelector:
-    topology.kubernetes.io/zone: us-east-1c
+    topology.kubernetes.io/zone: us-east-1b
   containers:
   - name: nginx
     image: nginx
